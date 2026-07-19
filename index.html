@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Methuselah — Patient, AI-Guided Long-Term Investing | Hahn Technologies Corp</title>
+<meta name="description" content="Methuselah is a Hahn Technologies Corp initiative exploring a patient, disciplined, AI-guided approach to long-term investing. Informational only — request info to learn more." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://methuselahmoney.com/" />
+<meta name="theme-color" content="#0b1a17" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Methuselah — Patient, AI-Guided Long-Term Investing" />
+<meta property="og:description" content="A Hahn Technologies Corp initiative. Patience, discipline, and modern AI — for the long game. Informational only." />
+<meta property="og:url" content="https://methuselahmoney.com/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b1a17; --bg2:#0e2320; --surface:#122a26; --surface2:#163330; --line:#254a44;
+    --ink:#eef3f0; --muted:#9fb4ac; --gold:#c9a24b; --gold-l:#e0c07a; --sage:#7fb09f; --good:#4bbf87;
+    --serif:"Playfair Display",Georgia,serif; --sans:"Inter",system-ui,-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--serif);line-height:1.15;font-weight:600;letter-spacing:.005em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2rem)}
+  .eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;font-weight:700;color:var(--gold)}
+  .btn{display:inline-block;font-family:var(--sans);font-weight:600;font-size:.95rem;padding:.85rem 1.7rem;border-radius:10px;transition:transform .15s,background .2s,border-color .2s}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-l),var(--gold));color:#1a1305}
+  .btn-gold:hover{transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--gold)}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(11,26,23,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{font-family:var(--serif);font-weight:700;font-size:1.35rem;color:var(--ink);letter-spacing:.02em}
+  .brand span{color:var(--gold)}
+  .nav .btn{padding:.55rem 1.15rem;font-size:.85rem}
+
+  .hero{position:relative;text-align:center;padding:clamp(4rem,10vw,7rem) 0 clamp(3.5rem,7vw,5.5rem);
+    background:radial-gradient(80% 90% at 50% 0%,rgba(201,162,75,.14),transparent 60%),linear-gradient(180deg,var(--bg2),var(--bg))}
+  .hero .eyebrow{display:block;margin-bottom:1.3rem}
+  .hero h1{font-size:clamp(3rem,9vw,5.5rem);font-weight:700;letter-spacing:.01em}
+  .hero .tag{color:var(--gold-l);font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,2.6vw,1.55rem);margin-top:.5rem}
+  .hero p.lead{color:var(--muted);font-size:clamp(1.02rem,2vw,1.15rem);max-width:56ch;margin:1.6rem auto 2.2rem}
+  .cta-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+  .rule{width:54px;height:2px;background:var(--gold);margin:0 auto;opacity:.8}
+
+  section{padding:clamp(3rem,7vw,5rem) 0}
+  .section-head{max-width:660px;margin:0 auto 2.4rem;text-align:center}
+  .section-head h2{font-size:clamp(1.9rem,4.4vw,2.7rem);margin:.7rem 0 .5rem}
+  .section-head p{color:var(--muted)}
+  .prose{max-width:680px;margin:0 auto;color:var(--ink);font-size:1.08rem}
+  .prose p{margin-bottom:1.15rem;color:#cdd9d3}
+  .prose strong{color:var(--ink)}
+
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:1rem}
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.7rem}
+  .pillar .k{font-family:var(--serif);font-size:1.3rem;color:var(--gold-l);margin-bottom:.4rem}
+  .pillar p{color:var(--muted);font-size:.97rem}
+
+  .who{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:820px;margin:0 auto}
+  @media(max-width:620px){.who-grid{grid-template-columns:1fr}}
+  .who-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.8rem}
+  .who-card h3{font-size:1.4rem;color:var(--ink);margin-bottom:.5rem}
+  .who-card p{color:var(--muted);font-size:.98rem}
+
+  /* form */
+  .form-wrap{max-width:620px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(1.6rem,4vw,2.4rem)}
+  label{display:block;font-weight:600;font-size:.9rem;margin:14px 0 6px}
+  .req{color:var(--gold)}
+  input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--ink);
+    padding:.8rem .9rem;font-size:1rem;font-family:inherit}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .consent input{width:16px;height:16px;flex:none;margin-top:4px;accent-color:var(--good)}
+  .consent label{margin:0;font-weight:500;font-size:.86rem;color:var(--muted)}
+  .btn-submit{width:100%;margin-top:18px;border:none;cursor:pointer;font-size:1.05rem;padding:.95rem}
+  .ok{display:none;text-align:center;background:var(--surface);border:1px solid var(--good);border-radius:18px;padding:2.2rem;max-width:620px;margin:0 auto}
+  .ok h3{color:var(--good);font-size:1.5rem;margin-bottom:.5rem}
+  .ok p{color:var(--muted)}
+
+  .disclaimer{background:#0a1512;border:1px solid var(--line);border-radius:14px;padding:1.5rem 1.7rem;max-width:820px;margin:2.4rem auto 0}
+  .disclaimer h4{font-family:var(--sans);text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;color:var(--gold);margin-bottom:.7rem}
+  .disclaimer p{color:var(--muted);font-size:.82rem;line-height:1.6;margin-bottom:.6rem}
+  .disclaimer p:last-child{margin-bottom:0}
+
+  footer{border-top:1px solid var(--line);padding:2.4rem 0;text-align:center;color:var(--muted);font-size:.9rem;background:var(--bg2)}
+  footer .sdg{color:var(--gold);font-family:var(--serif);font-style:italic;margin-top:.5rem}
+  footer a{color:var(--sage);font-weight:600}
+</style>
+<script>(function(){var id="xnz7h2n7bv";if(!id)return;(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script",id);})();</script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">Methuselah<span>.</span></a>
+      <a class="btn btn-gold" href="#connect">Request Info</a>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">A Hahn Technologies Corp Initiative</span>
+      <h1>Methuselah</h1>
+      <div class="tag">Patience is the rarest edge.</div>
+      <p class="lead">We're exploring a disciplined, long-horizon approach to investing — pairing timeless patience with modern artificial intelligence. Built slowly, honestly, and for the long game.</p>
+      <div class="cta-row">
+        <a class="btn btn-gold" href="#connect">Request info &rarr;</a>
+        <a class="btn btn-ghost" href="#idea">See the vision</a>
+      </div>
+      <p style="margin:22px auto 0;max-width:52ch;font-size:.82rem;color:var(--muted);line-height:1.5">An informational interest list only — <strong style="color:var(--sage)">not</strong> an offer to sell or a solicitation to buy any security. No money is being raised or accepted.</p>
+    </div>
+  </div>
+
+  <section id="idea">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The Vision</span>
+        <h2>The long game, run with modern tools</h2>
+      </div>
+      <div class="prose">
+        <p>Most of the noise in investing is built to make you act <em>now</em>. Methuselah is the opposite idea: <strong>time, discipline, and patience</strong> as the real advantages — the things technology can sharpen but never replace.</p>
+        <p>We're building an approach that uses <strong>artificial intelligence to do the heavy lifting of research</strong> — reading, organizing, and surfacing what matters — so decisions can be made calmly and deliberately, on a long horizon rather than a daily one.</p>
+        <p>This page is an early, honest introduction. We're not promising anything or raising money here — we're sharing the vision and inviting the right people to learn more as it takes shape.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="why" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Why "Methuselah"</span>
+        <h2>Named for the long life</h2>
+        <p>Methuselah is remembered as the longest-lived — a fitting name for a project built on time and patience rather than hype.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><div class="k">Patience</div><p>The long horizon is a choice most won't make. That's exactly why it's an edge.</p></div>
+        <div class="pillar"><div class="k">Discipline</div><p>A clear process, followed consistently, beats reacting to every headline.</p></div>
+        <div class="pillar"><div class="k">Intelligence</div><p>AI to research, organize, and inform — a tireless analyst, never the final word.</p></div>
+        <div class="pillar"><div class="k">Integrity</div><p>Honest and transparent, held to the same standard as every Hahn venture.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="who" class="who">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Who We're Talking To</span>
+        <h2>A small circle, built carefully</h2>
+      </div>
+      <div class="who-grid">
+        <div class="who-card">
+          <h3>Aligned investors</h3>
+          <p>Long-term thinkers who value patience and honesty over quick promises. If the vision resonates, request info and we'll keep you in the loop as things are properly structured — no pressure, no pitch to send money.</p>
+        </div>
+        <div class="who-card">
+          <h3>Team &amp; partners</h3>
+          <p>Builders, researchers, and technologists who want to help shape an AI-guided, long-horizon approach. If that's you, we'd love to talk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How It Works</span>
+        <h2>Process over promises</h2>
+        <p>We have no track record to wave around — and we won't pretend otherwise. Instead, here's exactly how we think. Method you can judge, not hype you have to trust.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><div class="k">1 · Research</div><p>Gather the facts broadly and patiently — the slow homework most people skip.</p></div>
+        <div class="pillar"><div class="k">2 · AI-assisted analysis</div><p>AI reads, organizes, and surfaces what matters. A tireless analyst — never the final word.</p></div>
+        <div class="pillar"><div class="k">3 · Human judgment</div><p>People make every decision. AI informs; humans decide. Always.</p></div>
+        <div class="pillar"><div class="k">4 · Patience &amp; discipline</div><p>Measured in years, not headlines. Rules followed consistently, capital respected first.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clarity">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Let's Be Clear</span>
+        <h2>What this is — and what it isn't</h2>
+      </div>
+      <div class="who-grid">
+        <div class="who-card" style="border-left:3px solid var(--good)">
+          <h3>What Methuselah IS</h3>
+          <p>An early interest list. A shared long-term vision. A way to follow along and get honest updates as it takes shape — at your own pace, no pressure.</p>
+        </div>
+        <div class="who-card" style="border-left:3px solid var(--gold)">
+          <h3>What it is NOT</h3>
+          <p>Not an investment offer or solicitation. Not a fund you can put money into today. Not a promise of returns, and not financial advice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Straight Answers</span>
+        <h2>Questions, answered honestly</h2>
+      </div>
+      <div style="max-width:720px;margin:0 auto;display:grid;gap:12px">
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Are you raising money right now?</summary><p style="color:var(--muted);margin:10px 0 0">No. This is an interest list only — no money is being solicited, and none will be accepted through this page.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Can I invest today?</summary><p style="color:var(--muted);margin:10px 0 0">No. Before anyone can invest, a securities attorney will set up the proper legal structure and disclosures. Joining the list simply keeps you informed as that develops.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Do you promise any returns?</summary><p style="color:var(--muted);margin:10px 0 0">Never. All investing involves risk, including the possible loss of principal. No returns are promised or implied — anyone who tells you otherwise isn't being honest.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">What does the AI actually do?</summary><p style="color:var(--muted);margin:10px 0 0">It assists with research — reading, organizing, and surfacing information faster than any person could. People still make every decision. AI informs; humans decide.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">What happens after I join?</summary><p style="color:var(--muted);margin:10px 0 0">You'll get occasional, honest updates as Methuselah develops. Nothing sold, nothing shared, no pressure — and we'll never ask you to send funds through this page.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="connect">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Request Info</span>
+        <h2>Learn more as it takes shape</h2>
+        <p>Tell us a little about you. This is an interest list — not an investment offer or commitment.</p>
+      </div>
+      <form class="form-wrap" id="lead" action="https://formspree.io/f/xbdvqvrk" method="POST">
+        <input type="hidden" name="_subject" value="Methuselah — investor / partner interest" />
+        <label for="name">Your name <span class="req">*</span></label>
+        <input id="name" name="name" type="text" required />
+        <label for="email">Email <span class="req">*</span></label>
+        <input id="email" name="email" type="email" required />
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" type="tel" />
+        <label for="role">I'm interested as…</label>
+        <select id="role" name="role">
+          <option>A potential investor</option>
+          <option>A potential team member / partner</option>
+          <option>Just following the vision for now</option>
+        </select>
+        <label for="note">Anything you'd like us to know?</label>
+        <textarea id="note" name="note" rows="3" placeholder="What drew you to this?"></textarea>
+        <div class="consent">
+          <input id="consent" type="checkbox" required />
+          <label for="consent">I understand this is an interest list only — not an offer, solicitation, or commitment to invest — and I agree to be contacted with more information. <span class="req">*</span></label>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+        <button class="btn btn-gold btn-submit" type="submit" id="btn">Add me to the list &rarr;</button>
+      </form>
+      <div class="ok" id="ok">
+        <h3>🙏 Thank you</h3>
+        <p>You're on the list. We'll reach out with more as Methuselah takes shape. Questions in the meantime? Text (252) 253-9629.</p>
+      </div>
+
+      <div class="disclaimer">
+        <h4>Important — please read</h4>
+        <p>This website is for <strong>informational purposes only</strong>. It is not financial, investment, tax, or legal advice, and it is <strong>not an offer to sell or a solicitation of an offer to buy any security</strong> or investment product. Nothing on this page is a recommendation to buy, sell, or hold anything.</p>
+        <p>Methuselah is an early-stage initiative. No investment opportunity is being offered at this time. <strong>Any future opportunity, if one exists, would be made available only through formal documentation, in compliance with applicable securities laws, and only to eligible investors.</strong> Submitting the form does not create any commitment by you or by us.</p>
+        <p>All investing involves risk, including the possible loss of principal. Past performance — where it may ever be shown — is never a guarantee of future results. <strong>No returns are promised or implied.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div><strong style="color:var(--ink)">Methuselah</strong> — a <a href="https://hahntechcorp.com">Hahn Technologies Corp</a> initiative · New Bern, NC</div>
+      <div style="margin-top:.4rem">Questions? Text (252) 253-9629 · hahntechnologiescorp@gmail.com</div>
+      <div style="margin-top:.9rem;font-size:.82rem"><a href="https://hahntechcorp.com/start.html">✦ Work with the Hahn family — Get started →</a></div>
+      <div style="margin-top:1.4rem;font-family:var(--serif);font-style:italic;color:var(--gold-l);font-size:1.08rem;line-height:1.6;max-width:52ch;margin-left:auto;margin-right:auto">With gratitude to Nick &amp; Spencer in Delray Beach — my God-given team, for the love, prayer, and support. Recovery is a <span style="font-style:normal;font-weight:700;letter-spacing:.04em">WE</span> thing.</div>
+      <div class="sdg">Soli Deo Gloria</div>
+    </div>
+  </footer>
+
+  <script>
+    var f=document.getElementById('lead');
+    f.addEventListener('submit',function(e){
+      var hp=f.querySelector('[name=_gotcha]'); if(hp&&hp.value){e.preventDefault();return;}
+      e.preventDefault();
+      var btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='Sending…';
+      fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+        .then(function(r){ if(r.ok){f.style.display='none';document.getElementById('ok').style.display='block';window.scrollTo({top:document.getElementById('connect').offsetTop-40,behavior:'smooth'});}
+          else{throw new Error();} })
+        .catch(function(){ btn.disabled=false; btn.textContent='Add me to the list →'; alert('Something went wrong — please text (252) 253-9629.'); });
+    });
+  </script>
+</body>
+</html>
