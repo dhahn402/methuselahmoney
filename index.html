@@ -95,6 +95,34 @@
   .disclaimer p{color:var(--muted);font-size:.82rem;line-height:1.6;margin-bottom:.6rem}
   .disclaimer p:last-child{margin-bottom:0}
 
+  /* tools */
+  .market-clock{display:inline-flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.6rem 1.4rem;margin:0 auto 2.2rem;font-size:.9rem}
+  .market-clock .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .market-clock .dot.open{background:var(--good);box-shadow:0 0 9px var(--good)}
+  .market-clock .dot.closed{background:#c96a4b}
+  .market-clock b{color:var(--ink)} .market-clock span{color:var(--muted)}
+  .clock-center{text-align:center}
+  .tool-tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.4rem}
+  .tool-tab{background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:.55rem 1.1rem;font-weight:600;font-size:.88rem;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s}
+  .tool-tab:hover{border-color:var(--gold);color:var(--ink)}
+  .tool-tab.active{background:linear-gradient(180deg,var(--gold-l),var(--gold));color:#1a1305;border-color:transparent}
+  .tool-panel{display:none;max-width:720px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(1.5rem,4vw,2.2rem)}
+  .tool-panel.active{display:block}
+  .tool-panel h3{font-size:1.32rem;color:var(--ink);margin-bottom:.3rem}
+  .tool-panel .lede{color:var(--muted);font-size:.92rem;margin-bottom:1.3rem}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.1rem}
+  @media(max-width:560px){.tool-grid{grid-template-columns:1fr}}
+  .tool-out{margin-top:1.4rem;border-top:1px solid var(--line);padding-top:1.3rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  @media(max-width:560px){.tool-out{grid-template-columns:1fr}}
+  .stat{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:.85rem 1rem}
+  .stat .lab{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
+  .stat .val{font-family:var(--serif);font-size:1.45rem;color:var(--gold-l);margin-top:.2rem;line-height:1.1}
+  .stat.hero-stat{border-color:var(--good)}
+  .stat.hero-stat .val{color:var(--good)}
+  .tool-note{font-size:.76rem;color:var(--muted);margin-top:1.2rem;line-height:1.55;font-style:italic}
+  .chart-wrap{margin-top:1.4rem;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:.8rem}
+  .chart-wrap .cap{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.4rem}
+
   footer{border-top:1px solid var(--line);padding:2.4rem 0;text-align:center;color:var(--muted);font-size:.9rem;background:var(--bg2)}
   footer .sdg{color:var(--gold);font-family:var(--serif);font-style:italic;margin-top:.5rem}
   footer a{color:var(--sage);font-weight:600}
@@ -179,6 +207,130 @@
         </script>
       </div>
       <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.2rem;max-width:60ch;margin-left:auto;margin-right:auto">Market data is provided for general information only — it is not investment advice, a recommendation, or an offer to buy or sell any security. Data by TradingView.</p>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Run the Numbers</span>
+        <h2>Free tools for the patient investor</h2>
+        <p style="max-width:60ch;margin:.6rem auto 0">Neutral calculators to help you think in years, not headlines. You enter your own numbers — these are illustrative math tools, not advice or predictions.</p>
+      </div>
+      <div class="clock-center">
+        <div class="market-clock" id="mktClock"><span class="dot closed"></span> <b id="mktState">Checking the market…</b> <span id="mktSub"></span></div>
+      </div>
+      <div class="tool-tabs">
+        <button class="tool-tab active" type="button" data-p="wheel">🎯 Options Wheel</button>
+        <button class="tool-tab" type="button" data-p="compound">📈 Compound &amp; DRIP</button>
+        <button class="tool-tab" type="button" data-p="size">🛡️ Position Size</button>
+        <button class="tool-tab" type="button" data-p="rule72">⏳ Rule of 72</button>
+      </div>
+
+      <div class="tool-panel active" id="p-wheel">
+        <h3>Options Wheel — return on capital</h3>
+        <p class="lede">For a cash-secured put (the wheel's entry): see the premium yield and what it works out to <em>annualized</em> on the cash you set aside. Covered calls work the same way against your cost basis.</p>
+        <div class="tool-grid">
+          <div><label for="w-k">Strike price ($)</label><input id="w-k" type="number" value="50" step="0.5" min="0"></div>
+          <div><label for="w-p">Premium per share ($)</label><input id="w-p" type="number" value="1.20" step="0.01" min="0"></div>
+          <div><label for="w-d">Days to expiration</label><input id="w-d" type="number" value="30" step="1" min="1"></div>
+          <div><label for="w-n">Contracts</label><input id="w-n" type="number" value="1" step="1" min="1"></div>
+          <div><label for="w-s">Current stock price ($, optional)</label><input id="w-s" type="number" value="52" step="0.5" min="0"></div>
+        </div>
+        <div class="tool-out">
+          <div class="stat"><div class="lab">Premium collected</div><div class="val" id="w-prem">—</div></div>
+          <div class="stat"><div class="lab">Return this cycle</div><div class="val" id="w-roc">—</div></div>
+          <div class="stat hero-stat"><div class="lab">Annualized return on capital</div><div class="val" id="w-aroc">—</div></div>
+          <div class="stat"><div class="lab">Breakeven if assigned</div><div class="val" id="w-be">—</div></div>
+        </div>
+        <p class="tool-note">Illustrative only. Annualized return on capital = (premium ÷ strike) × (365 ÷ days). It assumes similar trades could repeat all year, which real markets never guarantee. Options carry substantial risk and aren't suitable for everyone. Not a recommendation or a projected return.</p>
+      </div>
+
+      <div class="tool-panel" id="p-compound">
+        <h3>Compound &amp; DRIP growth</h3>
+        <p class="lede">The patient investor's real edge. See how a starting amount plus steady contributions can grow when returns compound over the years.</p>
+        <div class="tool-grid">
+          <div><label for="c-p">Starting amount ($)</label><input id="c-p" type="number" value="10000" step="500" min="0"></div>
+          <div><label for="c-c">Monthly contribution ($)</label><input id="c-c" type="number" value="500" step="50" min="0"></div>
+          <div><label for="c-r">Assumed annual return (%)</label><input id="c-r" type="number" value="8" step="0.5"></div>
+          <div><label for="c-y">Years</label><input id="c-y" type="number" value="25" step="1" min="1"></div>
+        </div>
+        <div class="chart-wrap"><div class="cap">Projected balance over time</div><div id="c-chart"></div></div>
+        <div class="tool-out">
+          <div class="stat hero-stat"><div class="lab">Future value</div><div class="val" id="c-fv">—</div></div>
+          <div class="stat"><div class="lab">Total invested</div><div class="val" id="c-inv">—</div></div>
+          <div class="stat"><div class="lab">Growth from compounding</div><div class="val" id="c-grow">—</div></div>
+        </div>
+        <p class="tool-note">Illustrative only. The assumed rate is a number <em>you</em> choose — it is not a promised, expected, or typical return. Actual markets rise and fall and can lose money. Not advice.</p>
+      </div>
+
+      <div class="tool-panel" id="p-size">
+        <h3>Position size &amp; risk</h3>
+        <p class="lede">Discipline means never risking too much on one idea. Set how much of your account you'll risk, and see the size that keeps you within it.</p>
+        <div class="tool-grid">
+          <div><label for="s-acc">Account size ($)</label><input id="s-acc" type="number" value="25000" step="1000" min="0"></div>
+          <div><label for="s-rp">Risk per trade (%)</label><input id="s-rp" type="number" value="1" step="0.25" min="0"></div>
+          <div><label for="s-en">Entry price ($)</label><input id="s-en" type="number" value="50" step="0.5" min="0"></div>
+          <div><label for="s-st">Stop-loss price ($)</label><input id="s-st" type="number" value="46" step="0.5" min="0"></div>
+        </div>
+        <div class="tool-out">
+          <div class="stat hero-stat"><div class="lab">Shares to buy</div><div class="val" id="s-sh">—</div></div>
+          <div class="stat"><div class="lab">Dollars at risk</div><div class="val" id="s-risk">—</div></div>
+          <div class="stat"><div class="lab">Position cost</div><div class="val" id="s-cost">—</div></div>
+          <div class="stat"><div class="lab">% of account</div><div class="val" id="s-pctacct">—</div></div>
+        </div>
+        <p class="tool-note">Illustrative risk-management math only — not a trade recommendation. It does not account for gaps, slippage, or fees, and stops do not guarantee a fill at your price.</p>
+      </div>
+
+      <div class="tool-panel" id="p-rule72">
+        <h3>Rule of 72 — time to double</h3>
+        <p class="lede">A back-of-the-napkin classic: divide 72 by your annual return to estimate the years it takes money to double. Patience, in one number.</p>
+        <div class="tool-grid one">
+          <div><label for="r-rate">Assumed annual return (%)</label><input id="r-rate" type="number" value="8" step="0.5" min="0"></div>
+        </div>
+        <div class="tool-out">
+          <div class="stat hero-stat"><div class="lab">Doubles in about</div><div class="val" id="r-years">—</div></div>
+          <div class="stat"><div class="lab">Quadruples in about</div><div class="val" id="r-quad">—</div></div>
+        </div>
+        <p class="tool-note">A rough estimate, most accurate for rates near 6–10%. The rate is your own assumption, not a promised return. Not advice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="learn" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Learn the Language</span>
+        <h2>The vocabulary of the long game</h2>
+        <p style="max-width:58ch;margin:.6rem auto 0">Plain-English definitions — because a patient investor understands every word before acting. Education only.</p>
+      </div>
+      <div style="max-width:760px;margin:0 auto;display:grid;gap:12px">
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">The Wheel</summary><p style="color:var(--muted);margin:10px 0 0">A repeating options routine: sell a cash-secured put on a stock you'd be happy to own; if assigned, you buy the shares, then sell covered calls against them until they're called away — collecting premium along the way. It rewards patience and picking quality companies.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Cash-Secured Put (CSP)</summary><p style="color:var(--muted);margin:10px 0 0">Selling a put option while holding enough cash to buy the shares if assigned. You collect a premium for agreeing to buy the stock at the strike price. It's the wheel's entry step.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Covered Call</summary><p style="color:var(--muted);margin:10px 0 0">Selling a call option against shares you already own. You collect a premium in exchange for agreeing to sell your shares at the strike price if they rise to it.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Premium</summary><p style="color:var(--muted);margin:10px 0 0">The cash the option seller receives up front. One options contract usually represents 100 shares, so a $1.20 premium equals $120 per contract.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Return on Capital (ROC)</summary><p style="color:var(--muted);margin:10px 0 0">The premium earned measured against the capital you set aside — often shown annualized to compare trades of different lengths on equal footing.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Days to Expiration (DTE)</summary><p style="color:var(--muted);margin:10px 0 0">How many days remain until an option expires. Shorter DTE means faster cycles; longer DTE means more premium but more time exposed to the market.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Assignment</summary><p style="color:var(--muted);margin:10px 0 0">When an option is exercised against the seller — a put seller buys the shares, or a call seller sells them. In the wheel, assignment is expected, not feared.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">DRIP (Dividend Reinvestment)</summary><p style="color:var(--muted);margin:10px 0 0">Automatically using dividends to buy more shares instead of taking the cash — a quiet engine of long-term compounding.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Dollar-Cost Averaging (DCA)</summary><p style="color:var(--muted);margin:10px 0 0">Investing a fixed amount on a regular schedule regardless of price. It removes the guesswork of timing and smooths your average cost over time.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Compounding</summary><p style="color:var(--muted);margin:10px 0 0">Earning returns on your returns. Given enough time, it's the most powerful force in investing — and the whole reason patience pays.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Rule of 72</summary><p style="color:var(--muted);margin:10px 0 0">A shortcut: divide 72 by an annual return rate to estimate how many years money takes to double. At 8%, roughly nine years.</p></details>
+        <details style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px"><summary style="cursor:pointer;font-weight:700;color:var(--ink)">Diversification</summary><p style="color:var(--muted);margin:10px 0 0">Spreading money across different investments so no single loss can sink you. The one "free lunch" in investing — it lowers risk without necessarily lowering long-term return.</p></details>
+      </div>
+
+      <div class="section-head" style="margin-top:3.2rem;margin-bottom:1.4rem">
+        <span class="eyebrow">Know the Calendar</span>
+        <h2 style="font-size:clamp(1.6rem,3.6vw,2.1rem)">The events that move markets</h2>
+        <p style="max-width:56ch;margin:.5rem auto 0">CPI, the Fed, jobs, earnings season — patience means knowing what's coming. A neutral schedule, not a signal to act.</p>
+      </div>
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+        {"colorTheme":"dark","isTransparent":true,"width":"100%","height":460,"locale":"en","importanceFilter":"0,1","countryFilter":"us"}
+        </script>
+      </div>
+      <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.2rem">Calendar data by TradingView, for general information only — not advice.</p>
     </div>
   </section>
 
@@ -352,6 +504,112 @@
           else{throw new Error();} })
         .catch(function(){ btn.disabled=false; btn.textContent='Add me to the list →'; alert('Something went wrong — please text (252) 626-6236.'); });
     });
+  </script>
+
+  <!-- Run the Numbers: calculators + market clock -->
+  <script>
+    (function(){
+      var $=function(id){return document.getElementById(id);};
+      var money=function(n){return isFinite(n)?'$'+Math.round(n).toLocaleString('en-US'):'—';};
+      var money2=function(n){return isFinite(n)?'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';};
+      var pct=function(n){return isFinite(n)?n.toFixed(2)+'%':'—';};
+      var num=function(id){var e=$(id);var v=e?parseFloat(e.value):NaN;return isFinite(v)?v:0;};
+      var on=function(ids,fn){ids.forEach(function(id){var e=$(id);if(e)e.addEventListener('input',fn);});};
+
+      // Tabs
+      var tabs=document.querySelectorAll('.tool-tab');
+      Array.prototype.forEach.call(tabs,function(t){
+        t.addEventListener('click',function(){
+          Array.prototype.forEach.call(tabs,function(x){x.classList.remove('active');});
+          Array.prototype.forEach.call(document.querySelectorAll('.tool-panel'),function(p){p.classList.remove('active');});
+          t.classList.add('active');
+          var p=$('p-'+t.getAttribute('data-p')); if(p)p.classList.add('active');
+        });
+      });
+
+      // Options Wheel
+      function wheel(){
+        var k=num('w-k'),p=num('w-p'),d=num('w-d'),n=num('w-n')||1,s=num('w-s');
+        $('w-prem').textContent=money(p*100*n);
+        $('w-roc').textContent=k>0?pct(p/k*100):'—';
+        $('w-aroc').textContent=(k>0&&d>0)?pct(p/k*(365/d)*100):'—';
+        $('w-be').textContent=money2(k-p)+(s>0?'  ('+pct(p/s*100)+' cushion)':'');
+      }
+      on(['w-k','w-p','w-d','w-n','w-s'],wheel); wheel();
+
+      // Compound / DRIP
+      function bal(P,C,i,m){return i?P*Math.pow(1+i,m)+C*((Math.pow(1+i,m)-1)/i):P+C*m;}
+      function compound(){
+        var P=num('c-p'),C=num('c-c'),r=num('c-r'),y=num('c-y');
+        var i=r/100/12,m=Math.round(y*12);
+        var fv=bal(P,C,i,m),invested=P+C*m;
+        $('c-fv').textContent=money(fv);
+        $('c-inv').textContent=money(invested);
+        $('c-grow').textContent=money(fv-invested);
+        var pts=[]; for(var yr=0;yr<=Math.max(1,y);yr++){pts.push(bal(P,C,i,Math.round(yr*12)));}
+        drawChart('c-chart',pts);
+      }
+      function drawChart(id,pts){
+        var el=$(id); if(!el)return;
+        var w=el.clientWidth||620,h=170,pad=6,n=pts.length;
+        var max=Math.max.apply(null,pts)||1;
+        if(n<2){el.innerHTML='';return;}
+        var xs=function(j){return pad+j*(w-2*pad)/(n-1);};
+        var ys=function(v){return h-pad-(v/max)*(h-2*pad);};
+        var line='',area='M'+xs(0).toFixed(1)+','+ys(pts[0]).toFixed(1);
+        for(var j=0;j<n;j++){var x=xs(j).toFixed(1),yv=ys(pts[j]).toFixed(1);line+=(j?'L':'M')+x+','+yv+' ';area+='L'+x+','+yv+' ';}
+        area+='L'+xs(n-1).toFixed(1)+','+(h-pad)+' L'+xs(0).toFixed(1)+','+(h-pad)+' Z';
+        el.innerHTML='<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="'+h+'" preserveAspectRatio="none" aria-hidden="true">'
+          +'<defs><linearGradient id="mgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a24b" stop-opacity=".45"/><stop offset="1" stop-color="#c9a24b" stop-opacity="0"/></linearGradient></defs>'
+          +'<path d="'+area+'" fill="url(#mgrad)"/>'
+          +'<path d="'+line+'" fill="none" stroke="#e0c07a" stroke-width="2"/></svg>';
+      }
+      on(['c-p','c-c','c-r','c-y'],compound); compound();
+      window.addEventListener('resize',compound);
+
+      // Position size
+      function size(){
+        var acc=num('s-acc'),rp=num('s-rp'),en=num('s-en'),st=num('s-st');
+        var risk=acc*rp/100,per=Math.abs(en-st),sh=per>0?Math.floor(risk/per):0,cost=sh*en;
+        $('s-sh').textContent=isFinite(sh)?sh.toLocaleString('en-US'):'—';
+        $('s-risk').textContent=money(risk);
+        $('s-cost').textContent=money(cost);
+        $('s-pctacct').textContent=acc>0?pct(cost/acc*100):'—';
+      }
+      on(['s-acc','s-rp','s-en','s-st'],size); size();
+
+      // Rule of 72
+      function rule72(){
+        var r=num('r-rate'),y=r>0?72/r:NaN;
+        $('r-years').textContent=isFinite(y)?y.toFixed(1)+' yrs':'—';
+        $('r-quad').textContent=isFinite(y)?(y*2).toFixed(1)+' yrs':'—';
+      }
+      var rr=$('r-rate'); if(rr)rr.addEventListener('input',rule72); rule72();
+
+      // Market-hours clock (NYSE, ET, 2026 holiday-aware)
+      var HOL={'2026-01-01':1,'2026-01-19':1,'2026-02-16':1,'2026-04-03':1,'2026-05-25':1,'2026-06-19':1,'2026-07-03':1,'2026-09-07':1,'2026-11-26':1,'2026-12-25':1};
+      function clock(){
+        var el=$('mktState'),sub=$('mktSub'),dot=document.querySelector('#mktClock .dot'); if(!el)return;
+        try{
+          var f=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false,weekday:'short'});
+          var pp={}; f.formatToParts(new Date()).forEach(function(x){pp[x.type]=x.value;});
+          var hh=parseInt(pp.hour,10)%24, mm=parseInt(pp.minute,10), mins=hh*60+mm;
+          var ymd=pp.year+'-'+pp.month+'-'+pp.day;
+          var closedDay=(pp.weekday==='Sat'||pp.weekday==='Sun'||HOL[ymd]);
+          var open=!closedDay&&mins>=570&&mins<960;
+          if(open){
+            el.textContent='U.S. markets are OPEN';
+            if(dot)dot.className='dot open';
+            var tc=960-mins; sub.textContent='· closes in '+Math.floor(tc/60)+'h '+(tc%60)+'m (4:00 PM ET)';
+          }else{
+            el.textContent='U.S. markets are CLOSED';
+            if(dot)dot.className='dot closed';
+            sub.textContent='· '+(HOL[ymd]?'market holiday':(pp.weekday==='Sat'||pp.weekday==='Sun')?'weekend':(mins<570?'opens 9:30 AM ET':'after hours — 9:30 AM ET next session'));
+          }
+        }catch(e){ el.textContent='U.S. market hours: 9:30 AM – 4:00 PM ET'; if(dot)dot.className='dot closed'; sub.textContent=''; }
+      }
+      clock(); setInterval(clock,30000);
+    })();
   </script>
 </body>
 </html>
