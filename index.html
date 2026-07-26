@@ -206,6 +206,13 @@
         }
         </script>
       </div>
+      <div class="tradingview-widget-container" style="margin-top:1.6rem;height:460px">
+        <div class="tradingview-widget-container__widget" style="height:100%"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+        {"exchanges":[],"dataSource":"SPX500","grouping":"sector","blockSize":"market_cap_basic","blockColor":"change","locale":"en","symbolUrl":"","colorTheme":"dark","hasTopBar":false,"isDataSetEnabled":false,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":460,"isTransparent":true}
+        </script>
+      </div>
+      <p style="text-align:center;color:var(--muted);font-size:.85rem;margin-top:1rem;font-weight:600">📊 The S&amp;P 500 by sector — green is up, red is down, and each block&apos;s size is its market cap.</p>
       <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.2rem;max-width:60ch;margin-left:auto;margin-right:auto">Market data is provided for general information only — it is not investment advice, a recommendation, or an offer to buy or sell any security. Data by TradingView.</p>
     </div>
   </section>
@@ -229,21 +236,22 @@
 
       <div class="tool-panel active" id="p-wheel">
         <h3>Options Wheel — return on capital</h3>
-        <p class="lede">For a cash-secured put (the wheel's entry): see the premium yield and what it works out to <em>annualized</em> on the cash you set aside. Covered calls work the same way against your cost basis.</p>
+        <p class="lede">The wheel has two legs: sell a <strong>cash-secured put</strong> to get in, then sell <strong>covered calls</strong> to get paid while you hold. Switch legs below and see the premium yield annualized on your capital.</p>
         <div class="tool-grid">
-          <div><label for="w-k">Strike price ($)</label><input id="w-k" type="number" value="50" step="0.5" min="0"></div>
+          <div><label for="w-leg">Leg</label><select id="w-leg"><option value="csp">Cash-Secured Put (entry)</option><option value="cc">Covered Call (exit)</option></select></div>
+          <div><label for="w-k" id="w-klab">Strike price ($)</label><input id="w-k" type="number" value="50" step="0.5" min="0"></div>
           <div><label for="w-p">Premium per share ($)</label><input id="w-p" type="number" value="1.20" step="0.01" min="0"></div>
           <div><label for="w-d">Days to expiration</label><input id="w-d" type="number" value="30" step="1" min="1"></div>
           <div><label for="w-n">Contracts</label><input id="w-n" type="number" value="1" step="1" min="1"></div>
-          <div><label for="w-s">Current stock price ($, optional)</label><input id="w-s" type="number" value="52" step="0.5" min="0"></div>
+          <div><label for="w-s" id="w-slab">Current stock price ($, optional)</label><input id="w-s" type="number" value="52" step="0.5" min="0"></div>
         </div>
         <div class="tool-out">
           <div class="stat"><div class="lab">Premium collected</div><div class="val" id="w-prem">—</div></div>
           <div class="stat"><div class="lab">Return this cycle</div><div class="val" id="w-roc">—</div></div>
           <div class="stat hero-stat"><div class="lab">Annualized return on capital</div><div class="val" id="w-aroc">—</div></div>
-          <div class="stat"><div class="lab">Breakeven if assigned</div><div class="val" id="w-be">—</div></div>
+          <div class="stat"><div class="lab" id="w-be-lab">Breakeven if assigned</div><div class="val" id="w-be">—</div></div>
         </div>
-        <p class="tool-note">Illustrative only. Annualized return on capital = (premium ÷ strike) × (365 ÷ days). It assumes similar trades could repeat all year, which real markets never guarantee. Options carry substantial risk and aren't suitable for everyone. Not a recommendation or a projected return.</p>
+        <p class="tool-note">Illustrative only. Return on capital = premium ÷ capital set aside (the strike for a put; your cost basis for a covered call), annualized by × (365 ÷ days). It assumes similar trades could repeat all year, which markets never guarantee. Options carry substantial risk and aren&apos;t suitable for everyone. Not a recommendation or a projected return.</p>
       </div>
 
       <div class="tool-panel" id="p-compound">
@@ -529,13 +537,22 @@
 
       // Options Wheel
       function wheel(){
+        var legEl=$('w-leg'), cc=legEl?legEl.value==='cc':false;
         var k=num('w-k'),p=num('w-p'),d=num('w-d'),n=num('w-n')||1,s=num('w-s');
+        var kl=$('w-klab'),sl=$('w-slab'),bl=$('w-be-lab');
+        if(kl)kl.textContent=cc?'Call strike ($)':'Strike price ($)';
+        if(sl)sl.textContent=cc?'Your cost basis / share ($)':'Current stock price ($, optional)';
+        if(bl)bl.textContent=cc?'If called away (total)':'Breakeven if assigned';
+        var base=cc?s:k; // capital set aside per share
         $('w-prem').textContent=money(p*100*n);
-        $('w-roc').textContent=k>0?pct(p/k*100):'—';
-        $('w-aroc').textContent=(k>0&&d>0)?pct(p/k*(365/d)*100):'—';
-        $('w-be').textContent=money2(k-p)+(s>0?'  ('+pct(p/s*100)+' cushion)':'');
+        $('w-roc').textContent=base>0?pct(p/base*100):'—';
+        $('w-aroc').textContent=(base>0&&d>0)?pct(p/base*(365/d)*100):'—';
+        if(cc){ $('w-be').textContent=s>0?pct(((k-s)+p)/s*100):'—'; }
+        else { $('w-be').textContent=money2(k-p)+(s>0?'  ('+pct(p/s*100)+' cushion)':''); }
       }
-      on(['w-k','w-p','w-d','w-n','w-s'],wheel); wheel();
+      on(['w-k','w-p','w-d','w-n','w-s'],wheel);
+      var wLeg=$('w-leg'); if(wLeg)wLeg.addEventListener('change',wheel);
+      wheel();
 
       // Compound / DRIP
       function bal(P,C,i,m){return i?P*Math.pow(1+i,m)+C*((Math.pow(1+i,m)-1)/i):P+C*m;}
